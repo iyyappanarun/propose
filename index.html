@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(180deg,#0b0f2b,#000);
+    color:#fff;
+    overflow-x:hidden;
+}
+
+/* ✨ Floating elements */
+.float{
+    position:fixed;
+    bottom:-30px;
+    pointer-events:none;
+    animation:rise linear infinite;
+    opacity:.8
+}
+@keyframes rise{
+    to{transform:translateY(-150vh) rotate(360deg);opacity:0}
+}
+
+/* ⭐ Stars */
+.star{
+    position:fixed;
+    width:2px;height:2px;
+    background:white;
+    animation:twinkle 3s infinite alternate;
+}
+@keyframes twinkle{from{opacity:.2}to{opacity:1}}
+
+/* Sections */
+section{max-width:900px;margin:auto;padding:90px 20px}
+
+/* Hero */
+.hero{text-align:center;padding-top:120px}
+.hero h1{font-size:3.2rem;font-weight:500}
+.hero span{
+    color:#ffcad4;
+    animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+    from{text-shadow:0 0 10px #ffcad4}
+    to{text-shadow:0 0 25px #ffcad4}
+}
+
+/* Gallery */
+.gallery{
+    display:flex;gap:20px;overflow-x:auto;padding:40px 0
+}
+.gallery img{
+    height:260px;border-radius:22px;
+    box-shadow:0 20px 40px rgba(0,0,0,.6)
+}
+
+/* Letter */
+.letter{
+    font-size:1.15rem;
+    line-height:2;
+    white-space:pre-line;
+    min-height:260px;
+}
+
+/* Question */
+.question{text-align:center;margin-top:80px}
+.question h2{font-size:2.3rem;margin-bottom:30px}
+
+/* Buttons */
+.buttons{position:relative;height:150px}
+button{
+    padding:16px 38px;
+    font-size:1rem;
+    border-radius:50px;
+    border:none;
+    cursor:pointer;
+    transition:.3s;
+}
+.yes{
+    background:#ffcad4;color:#000;
+    animation:heartbeat 1.4s infinite;
+}
+@keyframes heartbeat{
+    0%{transform:scale(1)}
+    50%{transform:scale(1.1)}
+    100%{transform:scale(1)}
+}
+.no{
+    background:transparent;
+    border:2px solid #fff;
+    color:#fff;
+    position:absolute;
+}
+
+/* Mobile */
+@media(max-width:600px){
+.hero h1{font-size:2.4rem}
+.gallery img{height:200px}
+.letter{font-size:1.05rem}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎶 MUSIC -->
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ⭐ Stars -->
+<script>
+for(let i=0;i<90;i++){
+ let s=document.createElement("div");
+ s.className="star";
+ s.style.left=Math.random()*100+"vw";
+ s.style.top=Math.random()*100+"vh";
+ s.style.animationDuration=(2+Math.random()*3)+"s";
+ document.body.appendChild(s);
+}
+</script>
+
+<!-- ❤️ Floating magic -->
+<script>
+function float(symbol,size){
+ let e=document.createElement("div");
+ e.className="float";
+ e.innerHTML=symbol;
+ e.style.left=Math.random()*100+"vw";
+ e.style.fontSize=size+"px";
+ e.style.animationDuration=(10+Math.random()*10)+"s";
+ document.body.appendChild(e);
+ setTimeout(()=>e.remove(),20000);
+}
+setInterval(()=>float("❤️",Math.random()*22+18),250);
+setInterval(()=>float("🌸",Math.random()*18+14),600);
+setInterval(()=>float("✨",Math.random()*14+10),800);
+</script>
+
+<section class="hero">
+<h1>Hey <span>Suji</span>,</h1>
+<p>I made this… just for you.</p>
+</section>
+
+<section>
+<div class="gallery">
+<img src="her1.jpg">
+<img src="her2.jpg">
+<img src="her3.jpg">
+</div>
+
+<div class="letter" id="typing"></div>
+
+<div class="question">
+<h2>Will you be mine?</h2>
+<div class="buttons">
+<button class="yes" onclick="yesClicked()">Yes</button>
+<button class="no" onmouseover="moveNo()">No</button>
+</div>
+</div>
+</section>
+
+<script>
+/* 📖 Typing story */
+const text=`Suji,
+
+This wasn’t loud.
+It wasn’t rushed.
+It was quiet… and real.
+
+You feel like peace.
+Like warmth.
+Like the place my heart keeps returning to.
+
+I don’t want perfection.
+I just want honesty.
+Laughter.
+Silence.
+And you.
+
+So here I am —
+with everything I feel,
+asking you this.`;
+
+let i=0,el=document.getElementById("typing");
+(function type(){
+ if(i<text.length){
+  el.innerHTML+=text.charAt(i++);
+  setTimeout(type,42);
+ }
+})();
+
+/* No button */
+function moveNo(){
+ let b=document.querySelector(".no");
+ b.style.left=Math.random()*300+"px";
+ b.style.top=Math.random()*90+"px";
+}
+
+/* 🎆 Fireworks + Final moment */
+function yesClicked(){
+ for(let i=0;i<60;i++){
+  setTimeout(()=>float("💖",Math.random()*26+16),i*40);
+ }
+ document.body.innerHTML=`
+ <section style="
+ min-height:100vh;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ background:linear-gradient(180deg,#0b0f2b,#000);
+ padding:30px;">
+ <h1 style="font-size:3.2rem;color:#ffcad4;">
+ One answer. A thousand feelings.
+ </h1>
+ <p style="font-size:1.35rem;margin-top:18px;">
+ And somehow, every one of them led to you.
+ </p>
+ </section>`;
+}
+</script>
+
+</body>
+</html>
